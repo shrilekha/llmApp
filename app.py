@@ -1,4 +1,6 @@
 import os
+from dotenv import load_dotenv
+
 import openai
 from traceloop.sdk import Traceloop
 from traceloop.sdk.decorators import workflow, task
@@ -7,12 +9,15 @@ from langchain_openai import ChatOpenAI
 from langchain.prompts.chat import ChatPromptTemplate
 import requests
 
+from opentelemetry.instrumentation.flask import FlaskInstrumentor
+FlaskInstrumentor().instrument(enable_commenter=True, commenter_options={})
+
 from flask import Flask, request, jsonify, render_template
 import logging
 
-# Environment variables
-# Setup openai key
-os.environ["OPENAI_API_KEY"] = "OPENAI-API-KEY"  // to update
+load_dotenv()
+OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+DT_ACCESS_TOKEN = os.getenv("DT_ACCESS_TOKEN")
 
 # Configure logging
 logging.basicConfig(level=logging.DEBUG, format="%(asctime)s - %(levelname)s - %(message)s")
@@ -20,7 +25,7 @@ logger = logging.getLogger()
 
 # Initialize Traceloop
 try:
-    headers = {"Authorization":"Api-Token DT-TOKEN"}  // to update
+    headers = {"Authorization": f"Api-Token {DT_ACCESS_TOKEN}"}
     Traceloop.init(
         app_name="openai-llm-chat",
         api_endpoint="https://yex81559.sprint.dynatracelabs.com/api/v2/otlp",
@@ -98,8 +103,9 @@ def generate_langchain_response(prompt_text, trace_id):
     
     headers = {
         "Content-Type": "application/json",
-        "Authorization": f"Bearer OPENAI-API-KEY" //update
+        "Authorization": f"Bearer {OPENAI_API_KEY}"
     }
+    
     headers = forward_trace_id(headers, trace_id)  # Attach trace ID
     payload = {
         "model": "gpt-3.5-turbo",
