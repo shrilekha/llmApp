@@ -98,7 +98,7 @@ def generate_langchain_response(prompt_text, trace_id):
     
     headers = {
         "Content-Type": "application/json",
-        "Authorization": f"Bearer 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" 
+        "Authorization": f"Bearer OPENAI-API-KEY" //update
     }
     headers = forward_trace_id(headers, trace_id)  # Attach trace ID
     payload = {
