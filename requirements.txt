@@ -112,7 +112,7 @@ nbformat @ file:///home/conda/feedstock_root/build_artifacts/nbformat_1733402752
 nest_asyncio @ file:///home/conda/feedstock_root/build_artifacts/nest-asyncio_1733325553580/work
 numpy @ file:///D:/bld/numpy_1737331058497/work/dist/numpy-2.2.2-cp311-cp311-win_amd64.whl#sha256=35c6e7c14cfe5ec84fb9e4f3743ddd731d3b620cef20bdf9a0d332a072679f55
 numpydoc @ file:///home/conda/feedstock_root/build_artifacts/numpydoc_1733650859674/work
-openai==1.68.2
+openai==1.70.0
 openpyxl @ file:///D:/bld/openpyxl_1725460865991/work
 opentelemetry-api==1.31.1
 opentelemetry-exporter-otlp-proto-common==1.31.1
